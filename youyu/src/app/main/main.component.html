@@ -1,0 +1,477 @@
+<!-- flag-icon-css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css">
+
+
+
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" role="button"><img src="{{uploadpath}}resource/{{res.shouqi}}"
+            class="icon-25 margin-right-10"></a>
+
+
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a routerLink='/' class="nav-link">主页</a>
+      </li>
+      <!-- <li class="nav-item d-none d-sm-inline-block">
+        <a  class="nav-link">Contact</a>
+      </li> -->
+    </ul>
+
+    <!-- SEARCH FORM -->
+    <!-- <div class="form-inline ml-3" *ngIf="module!='search'">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search"
+          [(ngModel)]='searchkey'>
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="button" (click)='searchkey="";navigate("search",{key:searchkey})'>
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <div class="dropdown-menu dropdown-menu-lg " [class.show]='searchkey!=""&&getSearchList(searchkey).length>0'>
+        <ng-template ngFor let-key [ngForOf]="getSearchList(searchkey)" let-i="index">
+          <div class="dropdown-divider"></div>
+          <a (click)='searchkey="";navigate("search",{key:key.name})' class="dropdown-item">{{key.name}}</a>
+        </ng-template>
+      </div>
+    </div> -->
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+
+      <li class="nav-item dropdown user-menu">
+
+        <a class="nav-link dropdown-toggle">
+          <!-- <img src="{{uploadpath}}resource/{{res.dianpu}}" class="user-image img-circle elevation-2" alt="User Image">   -->
+          <span class="d-none d-md-inline txt-bold">{{agentinfo.name}}，您好！</span>
+        </a>
+
+        <!-- <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        
+          <li class="user-header  ">
+            <img src="{{uploadpath}}resource/{{res.dianpu}}" class="img-circle elevation-2" alt="User Image">
+            
+            <h5>{{agentinfo.name}}</h5>
+            <p>
+
+            </p>
+          </li>
+         
+          <li class="user-footer">
+            <a href="/addshenqing" class="btn btn-default btn-flat">申请额度</a>
+            <a class="btn btn-default btn-flat float-right" (click)='logout()'>退出</a>
+          </li>
+        </ul> -->
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link flex-row2 flex-center2" data-toggle="dropdown" href="#">
+          <img src="{{uploadpath}}resource/{{res.yue}}" class="icon" >
+          <span class="h5 txt-red margin-left-10">当前余额：{{agentinfo.quota}}元</span>
+        </a>
+        <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+          <a class="dropdown-item dropdown-footer" routerLink='/addshenqing'>额度申请</a>
+        </div> -->
+      </li>
+
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link " href="/addshenqing">
+          <span class="h5 txt-blue">申请额度</span>
+        </a>
+
+      </li> -->
+
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link " href="/resetpassword">
+
+          <span class="h5 txt-blue">修改密码</span>
+        </a>
+       
+      </li> -->
+
+      <li class="nav-item dropdown">
+        <a class="nav-link " data-toggle="modal" data-target="#modal-xl3" (click)='logout()'>
+
+          <span class="h5 txt-blue">安全退出</span>
+        </a>
+
+      </li>
+
+      <!-- <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true"  role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li> -->
+
+
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a routerLink="" class="brand-link  ">
+      <img src="{{uploadpath}}inst/{{InstInfo.logo}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        style="opacity: .8">
+      <span class="brand-text font-weight-light   ">{{InstInfo.agentname}}</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a routerLink="" class="nav-link {{module=='home'?'active':''}}">
+              <i class=""><img src="{{uploadpath}}resource/{{res.shouye}}" class="icon-25 margin-right-10"></i>
+              <p>
+                首页
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item ">
+            <a class="nav-link  {{module=='simcard'?'active':''}}" routerLink='/simcard'>
+              <i class=""><img src="{{uploadpath}}resource/{{res.kaguanli}}" class="icon-25 margin-right-10"></i>
+              <p>
+                SIM卡管理
+              </p>
+            </a>
+          </li>
+
+
+          <li class="nav-item has-treeview">
+            <a class="nav-link {{module=='order'?'active':''}}">
+              <i class=""><img src="{{uploadpath}}resource/{{res.dindan}}" class="icon-25 margin-right-10"></i>
+              <p>
+                订单管理<i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="margin-top: 0;">
+              <li class="nav-item">
+                <a href="#" class="nav-link flex-row flex-center {{module2=='rechargeorder'?'active':''}}"
+                  routerLink='/recharge-order'>
+                  <i class=" far   nav-icon"></i>
+                  <p>用户充值管理</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center
+                  {{module2=='orderlist'?'active':''}}"  routerLink='/orderlist'><i class=" far   nav-icon"></i>
+                  <p>代理充值管理</p>
+                </a></li>
+              <!-- <li class="nav-item"><a href="#" class="nav-link flex-row  flex-center {{module2=='rechargelist'?'active':''}}" 
+                  routerLink='/rechargelist'><i class="far fa-circle nav-icon"></i>
+                  <p>SIM卡充值记录</p>
+                </a></li> -->
+            </ul>
+          </li>
+
+
+
+          <li class="nav-item has-treeview">
+            <a class="nav-link {{module=='agent'?'active':''}}">
+              <i class=""><img src="{{uploadpath}}resource/{{res.dailishan}}" class="icon-25 margin-right-10"></i>
+              <p>
+                代理商管理<i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="margin-top: 0;">
+              <li class="nav-item">
+                <a href="#" class="nav-link flex-row flex-center {{module2=='agentlist'?'active':''}}"
+                  routerLink='/agentlist'>
+                  <i class=" far   nav-icon"></i>
+                  <p>代理商列表</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center
+                  {{module2=='application'?'active':''}}" 
+                  routerLink='/application'><i class=" far   nav-icon"></i>
+                  <p>代理商充值申请</p>
+                </a></li>
+            </ul>
+          </li>
+
+
+
+          <li class="nav-item ">
+            <a class="nav-link  {{module=='packagelist'?'active':''}}" routerLink='/packagelist'>
+              <i class=""><img src="{{uploadpath}}resource/{{res.shangpin}}" class="icon-25 margin-right-10"></i>
+              <p>
+                商品系列
+              </p>
+            </a>
+          </li>
+
+
+
+          <!-- <li class="nav-item ">
+            <a class="nav-link  {{module=='rechargeorder'?'active':''}}" routerLink='/recharge-order'>
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                SIM卡充值订单
+              </p>
+            </a>
+          </li> -->
+
+
+          <!-- <li class="nav-item ">
+            <a class="nav-link  {{module=='orderlist'?'active':''}}" routerLink='/orderlist'>
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                代理商额度分配记录
+              </p>
+            </a>
+          </li> -->
+
+
+          <!-- <li class="nav-item ">
+            <a class="nav-link  {{module=='rechargelist'?'active':''}}" routerLink='/rechargelist'>
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                SIM卡充值记录
+              </p>
+            </a>
+          </li> -->
+
+
+
+
+
+
+
+          <li class="nav-item has-treeview">
+            <a class="nav-link {{module=='set'?'active':''}}">
+
+
+              <i class=""><img src="{{uploadpath}}resource/{{res.gengduofuwu}}" class="icon-25 margin-right-10"></i>
+
+              <p>
+                更多服务<i class="right fas fa-angle-left"></i>
+              </p>
+              <!-- <span class="badge badge-info right" *ngIf='shensu>0'>{{shensu}}</span> -->
+            </a>
+
+            <ul class="nav nav-treeview" style="margin-top: 0;">
+              <!-- <li class="nav-item"><a href="#" class="nav-link flex-row flex-center  "  
+                   ><i class=" far fa-circle nav-icon"></i>
+                  <p>短信通知设置</p>
+                </a></li> -->
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center
+                  {{module2=='appeallist'?'active':''}}" routerLink='/appeallist'><i class=" far   nav-icon"></i>
+                  <p>平台申诉</p>
+                  <!-- <span class="badge badge-info right" *ngIf='shensu>0'>{{shensu}}</span>  -->
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center
+                  {{module2=='addshenqing'?'active':''}}" routerLink='/addshenqing'><i class=" far   nav-icon"></i>
+                  <p>申请额度</p> 
+                </a></li>
+                <li class="nav-item"><a href="#" class="nav-link flex-row flex-center
+                  {{module2=='mima'?'active':''}}" routerLink='/resetpassword'><i class=" far   nav-icon"></i>
+                  <p>修改密码</p>
+
+                </a></li>
+  
+            </ul>
+
+          </li>
+          
+          
+
+
+          <li class="nav-item has-treeview">
+            <a class="nav-link {{module=='wd'?'active':''}}">
+
+              <i class=""><img src="{{uploadpath}}resource/{{res.wendang}}" class="icon-25 margin-right-10"></i>
+
+              <p>
+                共同成长<i class="right fas fa-angle-left"></i>
+              </p>
+              <!-- <span class="badge badge-info right" *ngIf='shensu>0'>{{shensu}}</span> -->
+            </a>
+
+            <ul class="nav nav-treeview" style="margin-top: 0;">
+              <!-- <li class="nav-item"><a href="#" class="nav-link flex-row flex-center  "  
+                   ><i class=" far fa-circle nav-icon"></i>
+                  <p>短信通知设置</p>
+                </a></li> -->
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center {{module2=='wendang'?'active':''}}"
+                routerLink='/wendang'  > <i class=" far   nav-icon"></i>
+                  <p class="margin-left-40">了解我们的产品</p>
+                  <!-- <span class="badge badge-info right" *ngIf='shensu>0'>{{shensu}}</span>  -->
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center {{module2=='wendang2'?'active':''}}"
+                routerLink='/wendang2'  > <i class=" far   nav-icon"></i>
+                  <p>理解资费策略与服务精神</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center {{module2=='wendang3'?'active':''}}"
+                routerLink='/wendang3'  > <i class=" far   nav-icon"></i>
+                  <p>帮助用户解决问题</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center {{module2=='wendang4'?'active':''}}"
+                  routerLink='/wendang4'  > <i class=" far   nav-icon"></i>
+                  <p>实现您的营销与推广</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center {{module2=='wendang5'?'active':''}}"
+                  routerLink='/wendang5'  > <i class=" far   nav-icon"></i>
+                  <p>提升您的盈利</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center {{module2=='wendang6'?'active':''}}"
+                  routerLink='/wendang6'  ><i class=" far   nav-icon"></i>
+                  <p>用户常见问题集合</p>
+                </a></li>
+            </ul>
+
+          </li>
+
+
+
+          <!-- <li class="nav-item ">
+            <a class="nav-link  {{module=='wendang'?'active':''}}" routerLink='/wendang'>
+              <i class=""><img src="{{uploadpath}}resource/{{res.wendang}}" class="icon-25 margin-right-10"></i>
+              <p>
+                共同成长
+              </p>
+            </a>
+          </li> -->
+
+          <!-- <li class="nav-item">
+            <a class="nav-link {{module=='addshenqing'?'active':''}}" routerLink='/addshenqing'>
+              <i class="nav-icon fas fa-question-circle"></i>
+              <p>
+                申请额度
+              </p> 
+            </a>
+          </li> -->
+
+
+          <!-- <li class="nav-item has-treeview">
+            <a class="nav-link  ">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                相关报表<i class="right fas fa-angle-left"></i>
+              </p>
+
+            </a>
+            <ul class="nav nav-treeview" style="margin-top: 0;">
+              <li class="nav-item">
+                <a href="#" class="nav-link flex-row flex-center "  >
+                  <i class=" far fa-circle nav-icon"></i>
+                  <p>消费充值额度</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center " 
+                   ><i class=" far fa-circle nav-icon"></i>
+                  <p>领卡数</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link flex-row flex-center " 
+                  ><i class=" far fa-circle nav-icon"></i>
+                  <p>代理数</p>
+                </a></li>
+            </ul>
+
+          </li> -->
+
+
+
+
+          <!-- <li class="nav-item">
+            <a class="nav-link {{module=='support'?'active':''}}" routerLink='/support'>
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                设置
+              </p>
+            </a>
+          </li> -->
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+
+
+
+
+  <router-outlet></router-outlet>
+
+
+
+
+  <!-- Control Sidebar -->
+
+
+  
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer ">
+    <div class="flex-row2 flex-center2">
+      <div class="flex-1"></div>
+      <strong>{{InstInfo.agentname}}</strong>
+      <div>All rights reserved.</div>
+      <div class="margin-left-40">
+        <b>Version</b> {{InstInfo.agent_version}}
+      </div>
+      <div class="flex-1"></div>
+    </div>
+    
+  </footer>
+
+
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+
+</div>
+
+
+
+
+<div class="modal fade" id="modal-xl6">
+
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button data-dismiss="modal" class="btn btn-primary margin-left"><img
+                      src="{{uploadpath}}resource/{{res.update}}" class="icon-15" title="分配"></button> -->
+        <div class="flex-1"></div>
+        <h4 class="modal-title">修改登录密码</h4>
+        <div class="flex-1"></div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+
+        <div>
+          <input type="text" class=" form-control col-form-label-sm" id="password" name='password'
+            placeholder="请输入代理商密码" [(ngModel)]='password' />
+        </div>
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+
+        <button type="submit" class="btn bg-primary" data-dismiss="modal" (click)='submit()'>保存</button>
+
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- ./wrapper -->

@@ -1,0 +1,108 @@
+<div class=" page" style="height: 100%;">
+
+
+    <div class=" flex-row2 flex-column2 padding-20">
+
+        <!-- <div style="height:150px"></div> -->
+
+        <div class="flex-row2 flex-center2">
+
+            <input type="text" class="  input flex-1" id="inputEmail3" placeholder="请输入ID号" name='simcardid'
+                [(ngModel)]='simcardid' />
+
+            <button class="  buttons  margin-left-20" style="border: 0;" data-toggle="modal"
+                data-target="#modal-default" (click)='chakan()'>
+                查询</button>
+        </div>
+
+
+        <div class="text-left margin-top-20">
+
+            <div *ngIf="info!=null" class="bg-white padding-10 radius-10  ">
+                <div class="p  padding-10">當前使用情況</div>
+                <div *ngFor='let item of info.dataPackage;let i=index'>
+
+                    <div class="margin-top-10" *ngIf="item.status==1">
+                        <!-- <div>状态{{item.status}}</div> -->
+                        <div class="flex-row2 flex-center2 tou padding-10">
+                            <div class="flex-1 h6">充值额度：<span class="txt-red">{{item.dataTotal}}MB</span></div>
+                             
+                            <div class="h6">生效時間：{{info.createTime}}</div>
+                        </div>
+
+                        <div class="margin-top-10 padding-10 flex-row2 flex-center2">
+                            <div class="margin-right-20" style="width: 84px;">總流量</div>
+                            <div class="txt-red">{{item.dataTotal}}MB</div>
+                        </div>
+                        <div class="margin-top-10 padding-10 flex-row2 flex-center2">
+                            <div class="margin-right-20" style="width: 84px;">已使用流量</div>
+                            <div class="txt-red">{{item.dataUsage}}MB</div>
+                        </div>
+                        <div class="margin-top-10 padding-10 flex-row2 flex-center2">
+                            <div class="margin-right-20" style="width: 84px;">今日使用流量</div>
+                            <div class="txt-red">{{item.dataToday}}MB</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="orderlist.length>0">
+                
+
+                <div *ngFor='let item of orderlist;let i=index' class="  margin-top-20 radius-10 bg-white padding-20">
+
+                    <div class=" " *ngIf='i==0'>產品套餐</div>
+
+                    <div class=" padding-10    margin-top-10">
+
+                        <div class="txt-bold   ">{{item.packagetype_name}}{{item.package_month}}{{item.package_danwei=='A'?'天':'个月'}}({{item.zong}}G)</div>
+
+                        <div class="margin-top-10 " style="width: 100%;height: 1px;background: #F0F0F0;"></div>
+
+                        <div class="margin-top-10  ">充值时间：{{item.ordertime}}</div>
+                        <!-- <div class="  ">到期时间：{{item.enddate}}</div> -->
+ 
+                    </div>
+
+                  
+
+                    <table class="table text-center  margin-top-20"  style="margin-bottom: 0;">
+
+                        <thead class="txt-white">
+                            <tr>
+                                <th>充值额度</th>
+                                <th>生效时间</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+
+                        <tbody *ngFor='let item2 of item.recordlist;let i2=index' class="{{i2%2==0?'bg1':'bg2'}}">
+                            <tr>
+                                <td>{{item2.quota}}</td>
+                                <td>{{item2.taketime}}</td>
+                                <td
+                                    class="{{item2.takestatus === 'A' ? 'txt-blue' : (item2.takestatus === 'B' ? 'txt-green' : 'txt-gray')}}">
+                                    {{item2.takestatus === 'A' ? '未启用' : (item2.takestatus === "B" ? '启用' : '已使用')}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+</div>

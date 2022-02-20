@@ -1,0 +1,170 @@
+<!-- Content Wrapper. Contains page content -->
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>充值记录</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink='/'>首页</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Horizontal Form -->
+                <div class="card card-info">
+                    <div class="card-header bg-gray-d">
+                        <h3 class="card-title">搜索条件</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label">订单编号</label>
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="请输入订单编号"
+                                        name='orderno' />
+                                </div>
+                                <!-- <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label">代理商</label>
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="请输入代理商名称"
+                                        name='orderno' />
+                                </div> -->
+                                <div class="form-group   col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label col-form-label-sm">开始时间</label>
+                                    <input type="date" class="form-control col-form-label-sm" id="inputEmail3"
+                                        data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd"
+                                        data-mask placeholder="请输入创建时间" name='shijian' />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <div class="float-right">
+                                <button type="submit" class="btn bg-gray">重置</button>
+                                <button type="submit" class="btn btn-primary margin-left-20">搜索</button>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-info "
+                                    routerLink='/creatrechargeorder'>创建订单</button>
+                                <!-- <button type="submit" class="btn   margin-left-20 {{type==''?'btn-primary':'btn-default'}}" (click)='ordertype("")' >全部订单</button>  -->
+                            </div>
+
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+                </div>
+                <!-- /.card -->
+
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <!-- <h3 class="card-title">Simple Full Width Table</h3> -->
+                        <div class="card-title h5 ">总条数：{{rechargelist.length}}条</div>
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right">
+                                <li class="page-item"><span class="page-link" (click)='Previous()'>&laquo;</span></li>
+                                <li class="page-item" *ngFor='let i of pageList'><span
+                                        class="page-link {{selPage==i?'bg-primary':''}}"
+                                        (click)='changedate(i)'>{{i}}</span></li>
+                                <li class="page-item"><span class="page-link" (click)='Next()'>&raquo;</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0" style="overflow-x: auto;">
+                        <table class="table text-center" style="min-width: 768px;">
+                            <thead>
+                                <tr>
+                                    <!-- <th width='1%'><img src="{{uploadpath}}resource/{{res.check}}" class="icon-20"
+                                            *ngIf='check==true' (click)='choose()' />
+                                        <img src="{{uploadpath}}resource/{{res.nocheck}}" class="icon-20"
+                                            *ngIf='check==false' (click)='choose()' /></th> -->
+                                    <!-- <th>序号</th> -->
+                                    <th>订单号</th>
+                                    <th>充值卡号</th>
+
+                                    <th>充值额度</th>
+                                    <th>生效时间</th>
+                                    <th>生效状态</th>
+                                    <th>操作</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let item of data;let i=index'>
+                                    <!-- <td>
+                                        <img src="{{uploadpath}}resource/{{res.check}}" class="icon-20"
+                                            *ngIf='check==true' />
+                                        <img src="{{uploadpath}}resource/{{res.check}}" class="icon-20"
+                                            *ngIf='check==false' />
+                                    </td> -->
+                                    <!-- <td>{{i+1}}</td> -->
+                                    <td>{{item.order_id_name}}</td>
+
+                                    <td>{{item.cardnumber}}</td>
+                                    <td>{{item.quota}}</td>
+                                    <td>{{item.taketime_dateformat}}</td>
+                                    <td>{{item.takestatus_name}}</td>
+
+                                    <td> 
+                                        <button class="badge bg-primary margin-right" data-toggle="modal" data-target="#modal-default" *ngIf='item.takestatus=="A"' (click)='shengxiao(item.order_id,item.cardnumber)' > 提前生效</button> 
+                                        
+                                    </td>
+
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+
+
+<div class="modal fade" id="modal-default"  >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">充值提示</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>确认提前生效该套餐?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" (click)='queren()' data-dismiss="modal">确认</button>
+            </div>
+        </div>
+    </div>
+</div>

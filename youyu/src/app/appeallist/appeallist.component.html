@@ -1,0 +1,134 @@
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>代理商列表</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink='/'>首页</a></li>
+                        <li class="breadcrumb-item active">代理商列表</li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Horizontal Form -->
+                <div class="card card-info">
+                    <!-- <div class="card-header bg-gray-d">
+                        <h3 class="card-title">搜索条件</h3>
+                    </div> -->
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+
+                            <div>
+                                <button type="submit" class="btn btn-info " routerLink='/appeal'>向上级申诉</button>
+                            </div>
+
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+                </div>
+                <!-- /.card -->
+
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <div class="card-header">
+                        <!-- <h3 class="card-title">Simple Full Width Table</h3> -->
+                        <div class="card-title h5  ">总条数：{{appeallist.length}}条</div>
+
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right">
+                                <li class="page-item"><span class="page-link" (click)='Previous()'>&laquo;</span></li>
+                                <li class="page-item" *ngFor='let i of pageList'><span
+                                        class="page-link {{selPage==i?'bg-primary':''}}"
+                                        (click)='changedate(i)'>{{i}}</span></li>
+                                <li class="page-item"><span class="page-link" (click)='Next()'>&raquo;</span></li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+
+                    <!-- /.card-header -->
+                    <div class="card-body p-0" style="overflow-x: auto;">
+                        <table class="table text-center" style="min-width: 768px;">
+                            <thead>
+                                <tr>
+                                    <!-- <th>代理商</th> -->
+                                    <!-- <th>序号</th> -->
+                                    <th>代理商</th>
+                                    <th>申诉内容</th>
+                                    <th>申诉时间</th>
+                                    <th>申诉状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let item of data;let i=index'>
+                                    <!-- <td>
+                                        <img src="{{uploadpath}}agent/{{item.logo}}" class="icon-50" />
+                                    </td> -->
+                                    <!-- <td>{{i+1}}</td> -->
+
+                                    <td>{{item.agent2_id_name}}</td>
+
+                                    <td>{{item.content}}</td>
+
+
+                                    <td>{{item.appeal_time}}</td>
+
+
+                                    <td>
+                                        <div class="txt-bold {{item.appeal_status=='A'?'txt-red':'txt-green'}}">
+                                            {{item.appeal_status_name}}</div>
+                                        <!-- <button *ngIf='item.appeal_status=="A"' style="border: 0;" class="badge bg-green" (click)='update(item.id)'>{{item.appeal_status_name}}</button>  -->
+                                    </td>
+
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div *ngIf='appeallist.length==0' class="text-center" style="width: 100%;">
+                    <div style="height: 20px;"></div>
+                    <img src="{{uploadpath}}resource/{{res.zanwu}}" class="icon-60">
+                    <div class="margin-top-10">暂无数据</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body padding-40">
+                        <pre style="white-space:pre-wrap;color: gray;">{{InstInfo.shensu}}</pre>
+                    </div> 
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</div>

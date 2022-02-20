@@ -1,0 +1,248 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>用户充值订单</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink='/'>首页</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Horizontal Form -->
+                <div class="card card-info">
+                    <div class="card-header bg-gray-d">
+                        <h3 class="card-title">搜索条件</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label">订单编号</label>
+                                    <input type="text" [(ngModel)]='orderno' class="form-control" id="inputEmail3"
+                                        placeholder="请输入订单编号" name='orderno' />
+                                </div>
+                                <!-- <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label">代理商</label>
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="请输入代理商名称"    name='orderno' />
+                                </div> -->
+                                <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label">充值卡号</label>
+                                    <input type="text" [(ngModel)]='cardid' class="form-control" id="inputEmail3"
+                                        placeholder="请输入充值卡号" name='cardid' />
+                                </div>
+
+                                <div class="form-group   col-lg-2 col-md-3  col-sm-4">
+                                    <label for="inputEmail3" class=" col-form-label col-form-label-sm">起始时间</label>
+                                    <input type="date" class="form-control col-form-label-sm" id="inputEmail3"
+                                      data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask
+                                      placeholder="年/月/日" name='start' [(ngModel)]='starttime' />
+                                  </div>
+
+                                  <div class="form-group   col-lg-2 col-md-3  col-sm-4">
+                                    <label for="inputEmail3" class=" col-form-label col-form-label-sm">结束时间</label>
+                                    <input type="date" class="form-control col-form-label-sm" id="inputEmail3"
+                                      data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask
+                                      placeholder="年/月/日" name='end' [(ngModel)]='endtime' />
+                                  </div>
+
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <div class="float-right">
+                                <button type="submit" class="btn bg-gray" (click)='reset()'>重置</button>
+                                <button type="submit" class="btn btn-primary margin-left-20"
+                                    (click)='search()'>搜索</button>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-info "
+                                    routerLink='/creatrechargeorder'>新增充值</button>
+                                <!-- <button type="submit" class="btn   margin-left-20 {{type==''?'btn-primary':'btn-default'}}" (click)='ordertype("")' >全部订单</button>  -->
+                            </div>
+
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+                </div>
+                <!-- /.card -->
+
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <!-- <h3 class="card-title">Simple Full Width Table</h3> -->
+                        <div class="card-title h5 ">总条数：{{orderlist.length}}条</div>
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right">
+                                <li class="page-item"><span class="page-link" (click)='Previous()'>&laquo;</span></li>
+                                <li class="page-item" *ngFor='let i of pageList'><span
+                                        class="page-link {{selPage==i?'bg-primary':''}}"
+                                        (click)='changedate(i)'>{{i}}</span></li>
+                                <li class="page-item"><span class="page-link" (click)='Next()'>&raquo;</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0" style="overflow-x: auto;">
+                        <table class="table text-center" style="min-width: 768px;">
+                            <thead>
+                                <tr>
+                                    <!-- <th width='1%'><img src="{{uploadpath}}resource/{{res.check}}" class="icon-20"
+                                            *ngIf='check==true' (click)='choose()' />
+                                        <img src="{{uploadpath}}resource/{{res.nocheck}}" class="icon-20"
+                                            *ngIf='check==false' (click)='choose()' /></th> -->
+                                    <!-- <th>序号</th> -->
+                                    <th>订单号</th>
+                                    <th>充值卡号</th>
+
+                                    <th>产品套餐</th>
+                                    <th>套餐价格</th>
+                                    <th>订单创建时间</th>
+                                    <th>微信号</th>
+                                    <!-- <th>套餐时效</th>  -->
+                                    <th>备注</th>
+                                    <th>操作</th>
+
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                <ng-container *ngFor='let item of orderlist;let i=index'>
+
+                                    <tr class=" ">
+
+                                        <!-- <td>{{i+1}}</td> -->
+                                        <td>{{item.orderno}}</td>
+                                        <td>{{item.simcard_cardnumber}}</td>
+
+                                        <td>{{item.packagetype_name}} {{item.package_traffic}}M
+                                            {{item.package_month}}{{item.package_danwei=='A'?'天':'个月'}}
+                                        </td>
+                                        <td>{{item.package_price}}</td>
+                                        <td>{{item.ordertime}}</td>
+
+                                        <td>{{item.simcard_wechatid}}</td>
+
+                                        <td>
+                                            {{item.remarks}}
+                                        </td>
+
+                                        <td>
+                                            <button class="badge bg-primary margin-right" style="border: 0;" title="提前生效"
+                                                data-toggle="modal" data-target="#modal-default"
+                                                (click)='shengxiao(item.id,item.simcard_cardnumber)'><img src="{{uploadpath}}resource/{{res.tiqian}}"  class="icon-15" /></button>
+
+                                        </td>
+
+                                        <td>
+                                            <img src="{{uploadpath}}resource/{{item.show==true?res.s:res.x}}"
+                                                class="icon-20" (click)='showall(i)' />
+                                        </td>
+
+                                    </tr>
+
+                                    <ng-container *ngIf="item.show==true">
+                                        <tr *ngFor='let items of item.recordlist;let a=index' class="{{items.takestatus === 'A' ? 'txt-blue' : (items.takestatus === 'B' ? 'txt-green' : 'txt-gray')}}">
+
+
+                                            <td colspan="2">卡号：{{items.cardnumber}}</td>
+                                            <td colspan="2">充值额度：{{items.quota}} MB</td>
+                                            <td colspan="2">生效时间：{{items.taketime}}</td>
+
+                                            <td colspan="2"  >生效状态：{{items.takestatus === 'A' ? '未启用' : (items.takestatus === "B" ? '启用' : '已使用')}}</td>
+                                            <!-- <td colspan="2" *ngIf='items.takestatus=="B"'>生效状态：已启用</td>
+                                            <td colspan="2" *ngIf='items.takestatus=="C"'>生效状态：已过期</td> -->
+
+
+                                        </tr>
+                                    </ng-container>
+
+                                </ng-container>
+
+                               
+
+                            </tbody>
+
+                            
+                        </table>
+
+                       
+                    </div>
+
+                    
+
+                </div>
+
+                <div *ngIf='orderlist.length==0' class="text-center" style="width: 100%;">
+                    <div style="height: 20px;"></div>
+                    <img src="{{uploadpath}}resource/{{res.zanwu}}" class="icon-60" >
+                    <div class="margin-top-10">暂无数据</div> 
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">充值提示</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>确认提前生效该套餐?</p>
+
+                <div class="txt-blue">
+                   {{InstInfo.tiqianchong}}
+                </div>
+
+                <div class="txt-bold txt-red">
+                    请谨慎操作此功能，操作错误无法挽回损失!
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" (click)='queren()' data-dismiss="modal">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="" *ngIf='xianshi=="A"'>
+
+    <div class="allblock"> 
+        <div class="flex-row2 flex-center2" style="width: 80%;height: 100%;">
+            <div class="flex-3"></div> 
+            <img src="{{uploadpath}}resource/{{res.loading}}" class="icon-30" alt="">
+            <div class="flex-1"></div> 
+        </div> 
+    </div>
+
+</div>

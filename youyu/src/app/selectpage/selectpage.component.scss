@@ -1,0 +1,51 @@
+.buttons{
+     
+    width:70px;
+height:44px;
+background:rgba(38,39,40,1);
+border-radius:8px;
+color: #DFCC93;
+}
+.input{
+    min-width: 270px;
+    height: 48px;
+    border-radius:8px;
+    border:1px solid rgba(167,142,77,0.32);
+    padding: 4px;
+}
+ 
+.page{
+    background: rgb(238, 238, 238);
+}
+table{
+     width: 340px;
+     background: white;
+     margin-top: 0;
+}
+.tou{ 
+background:#D8D8D8;
+border-radius:8px; 
+height:36px;
+}
+ th{
+    border: 1px solid white;
+    background: #1B1C1D;
+    font-weight: normal;
+    font-size: 12px;
+ }
+ td{
+    border: 1px solid white;  
+    font-size: 12px;
+ }
+.table td, .table th{
+    padding: 10px; 
+}
+ .bg1{
+     background: #F9F9F9;
+ }
+ .bg2{
+    background: #EDEDED;
+}
+.table tbody+tbody{
+    border-top: 0;
+}

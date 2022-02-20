@@ -1,0 +1,38 @@
+.description-text{
+    font-size: 13px;
+}
+.echarts {
+    width: 800px;
+    height: 600px;
+  }
+
+  .starbox {
+    width: 100px;
+    position: relative;
+    display: inline-block; 
+    overflow: hidden;
+  }
+  .stars {
+    position: relative;
+    top: 0;
+    left: 0; 
+    overflow: hidden;
+  }
+  .ims {
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .stars2 { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  .block{
+    width:280px;
+height:88px;
+background:rgba(255,255,255,1);
+border-radius:8px;
+border:1px solid rgba(240,240,240,1);
+  }

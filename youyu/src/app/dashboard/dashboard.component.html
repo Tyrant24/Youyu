@@ -1,0 +1,159 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">首页</h1>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+ 
+
+        <div class="card-body padding-40 bg-white">
+
+          <div class="flex-row2 flex-center2">
+            <div class="txt-bold">
+              您当前星级：
+            </div>
+
+            <div class="starbox margin-bottom-10">
+              <div class="stars" style="width: 100%;">
+                <div class=" ims">
+                  <img src="{{uploadpath}}resource/{{res.star_null}}" class="icon-20" />
+                  <img src="{{uploadpath}}resource/{{res.star_null}}" class="icon-20" />
+                  <img src="{{uploadpath}}resource/{{res.star_null}}" class="icon-20" />
+                  <img src="{{uploadpath}}resource/{{res.star_null}}" class="icon-20" />
+                  <img src="{{uploadpath}}resource/{{res.star_null}}" class="icon-20" />
+                </div>
+              </div>
+
+              <div class="stars2" [ngStyle]="{'width':starnum+'%'}">
+                <div class="ims">
+                  <img src="{{uploadpath}}resource/{{res.star}}" class="icon-20" />
+                  <img src="{{uploadpath}}resource/{{res.star}}" class="icon-20" />
+                  <img src="{{uploadpath}}resource/{{res.star}}" class="icon-20" />
+                  <img src="{{uploadpath}}resource/{{res.star}}" class="icon-20" />
+                  <img src="{{uploadpath}}resource/{{res.star}}" class="icon-20" />
+                </div>
+              </div>
+            </div>
+
+            <div class="margin-left-40">再提卡<span class="txt-red txt-bold margin-left-10 margin-right-10 h4">{{cha}}</span>张，即可晋级<span
+                class="txt-red txt-bold margin-left-10 margin-right-10 h4">{{start+1}}</span>星级！</div>
+
+          </div>
+
+
+          <div>您的用户已激活<span
+              class="txt-red txt-bold margin-left-10 margin-right-10 h4">{{active_total}}</span>个，累计充值<span
+              class="txt-red txt-bold margin-left-10 margin-right-10 h4">{{allprice}}</span>元，已发展代理商数<span
+              class="txt-red txt-bold margin-left-10 margin-right-10 h4">{{agent_total}}</span>人！</div>
+          <div>继续努力，预计12个月后，您的月充值额将达到<span
+              class="txt-red txt-bold margin-left-10 margin-right-10 h4">{{chongzhilv}}</span>元，月利润<span
+              class="txt-red txt-bold margin-left-10 margin-right-10 h4">{{yuelirun}}</span>元左右！</div>
+        </div>
+
+    
+
+      <div class="row margin-top-30">
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box cur-po" routerLink="/recharge-order">
+             
+            <img src="{{uploadpath}}resource/{{res.jinri}}" class="icon-60" />
+            <div class="info-box-content">
+              <span class="info-box-text">今日充值</span>
+              <span class="info-box-number f32 txt-bold" style="color: #0091FF;">
+                ¥ {{days}}
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3 cur-po" routerLink="/recharge-order">
+            <img src="{{uploadpath}}resource/{{res.benyue}}" class="icon-60" />
+
+            <div class="info-box-content">
+              <span class="info-box-text">本月充值</span>
+              <span class="info-box-number f32 txt-bold" style="color: #E02020;">¥ {{month}}</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3 cur-po">
+            <img src="{{uploadpath}}resource/{{res.leiji}}" class="icon-60" />
+
+            <div class="info-box-content">
+              <span class="info-box-text">累计充值</span>
+              <span class="info-box-number f32 txt-bold"style="color: #00BD92;">¥ {{allprice}}</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="clearfix hidden-md-up"></div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3 cur-po">
+            <img src="{{uploadpath}}resource/{{res.katongji}}" class="icon-60" />
+ 
+            <div class="info-box-content">
+              <span class="info-box-text">累计提卡</span>
+              <span class="info-box-number f32 txt-bold"style="color: #000000;">{{zongshu}}<span class="h5 margin-left-10">张</span></span>
+            </div>
+
+          </div>
+
+        </div>
+ 
+      </div>
+
+      <div class="bg-white margin-4 padding-20" style="border-radius:8px;">
+        <div class="flex-row2 flex-center2">
+          <div class="txt-bold flex-1">累计充值</div>
+          <div style="opacity: 0.5;">单位（元）</div>
+        </div>
+        
+
+
+      <div *ngIf='list.length>0' class="row " id="statincome">
+        <div class="col-md-12 col-sm-12" *ngIf="clientaccoptions!=null">
+          <div echarts [options]='clientaccoptions'>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+      <div class=" ">
+        <div class="card-body padding-40">
+
+          <div class="textarea h5" contenteditable="true">{{InstInfo.shuoming}}</div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+  </section>
+
+</div>

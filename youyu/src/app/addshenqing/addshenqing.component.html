@@ -1,0 +1,70 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>额度申请</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink='/'>首页</a></li> 
+                        <li class="breadcrumb-item active">额度申请</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card card-info">
+
+                    <div class="card-header" style="background-color: #F0F0F0;">
+                        <h3 class="card-title">申请额度</h3>
+                    </div>
+
+                    <form role="form" id="quickForm">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="form-group col-lg-12 col-md-12  col-sm-12" style="overflow-x: auto;">
+                                    <table class="table h5 bor-none" style="min-width: 768px;"> 
+                                        <tr>
+                                            <td class="  ">申请额度</td>
+                                            <td class=""><input type="number" class=" form-control col-form-label-sm"
+                                                    id="quota" name='quota' placeholder="请输入代理商密码"
+                                                    [(ngModel)]='quota' />
+                                            </td> 
+                                            <td class=" ">备注(选填)</td>
+                                            <td class="">
+                                                <input type="text" class=" form-control col-form-label-sm"
+                                                    id="remarks" name='remarks' placeholder="请填写备注"
+                                                    [(ngModel)]='remarks' />
+                                            </td> 
+                                        </tr> 
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-primary" (click)='confirm()'>保存</button>
+                            <button type="submit" class="btn bg-gray margin-left-20" (click)='back()'>返回</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-body padding-40">
+                        <pre style="white-space:pre-wrap;color: gray;">{{InstInfo.guanyuedu}}</pre>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

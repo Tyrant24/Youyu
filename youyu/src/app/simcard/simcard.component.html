@@ -1,0 +1,469 @@
+<!-- Content Wrapper. Contains page content -->
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>SIM列表</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink='/'>首页</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="content">
+        <input class="inputs" id='inputs'>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Horizontal Form -->
+                <div class="card card-info">
+                    <div class="card-header bg-gray-d">
+                        <h3 class="card-title">搜索条件</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label">卡号</label>
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="请输入开始卡号搜索"
+                                        name='idno' [(ngModel)]='idno' />
+
+                                    <input type="text" class="form-control margin-top-10" id="inputEmail4"
+                                        placeholder="请输入结束卡号搜索" name='idno2' [(ngModel)]='idno2' />
+                                </div>
+
+                                <div class="form-group   col-lg-2 col-md-3  col-sm-4 ">
+                                    <label for="inputEmail3" class=" col-form-label col-form-label-sm">卡状态</label>
+                                    <select name='cardstatus' id="inputEmail3"
+                                        class="form-control col-form-label-sm margin-top-5" [(ngModel)]='accountStatus'>
+                                        <option value="">请选择</option>
+                                        <option value="{{item.id}}" *ngFor='let item of statuslist'>{{item.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label">代理商</label>
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="请输入代理商账号"
+                                        name='agent' [(ngModel)]='agent' />
+                                </div>
+
+                                <!-- <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label"></label>
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="请输入结束卡号搜索"
+                                        name='idno' [(ngModel)]='idno' />
+                                </div> -->
+                                <!-- <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label">代理商账号</label>
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="请输入代理商账号"
+                                        name='account' [(ngModel)]='account' />
+                                </div>
+                                <div class="form-group  col-lg-4 col-md-5  col-sm-6">
+                                    <label for="inputEmail3" class=" col-form-label">联系电话</label>
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="请输入联系电话"
+                                        name='mobile' [(ngModel)]='mobile' />
+                                </div> -->
+
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <div class="float-right">
+                                <button type="submit" class="btn bg-gray" (click)='reset()'>重置</button>
+                                <button type="submit" class="btn btn-primary margin-left-20"
+                                    (click)='search()'>搜索</button>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-info " data-toggle="modal" data-target="#modal-xl"
+                                    (click)='piliang()'>批量分配</button>
+                                <button type="submit" class="btn btn-info margin-left-20"
+                                    routerLink='/creatrechargeorder'>充值</button>
+
+                                <button type="submit" class="btn btn-info margin-left-20 "  data-toggle="modal" data-target="#modal-xl4"
+                                    >SIM卡退回</button>
+                            </div>
+
+ 
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+                </div>
+                <!-- /.card -->
+
+ 
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+
+
+                    <div class="card-header">
+                        <!-- <h3 class="card-title">Simple Full Width Table</h3> -->
+                        <div class="card-title h5  ">总条数：{{simcardlist.length}}条</div>
+
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right">
+                                <li class="page-item"><span class="page-link" (click)='Previous()'>&laquo;</span></li>
+                                <li class="page-item" *ngFor='let i of pageList'><span
+                                        class="page-link {{selPage==i?'bg-primary':''}}"
+                                        (click)='changedate(i)'>{{i}}</span></li>
+                                <li class="page-item"><span class="page-link" (click)='Next()'>&raquo;</span></li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+
+                    <!-- /.card-header -->
+                    <div class="card-body p-0" style="overflow-x: auto;">
+                        <table class="table text-center" style="min-width: 768px;">
+                            <thead>
+                                <tr>
+                                    <th width="1%" *ngFor='let item of danyexuan;let i=index' class="{{selPage==item.idx?'':'icon-null'}}">
+                                      
+                                        <img  src="{{uploadpath}}resource/{{item.checked==true?res.check:res.nocheck}}" class="icon-20"
+                                           (click)='chooseall(i)' />
+
+                                        <!-- <img src="{{uploadpath}}resource/{{res.nocheck}}" class="icon-20"
+                                            *ngIf='allchose==false&&selPage==i' (click)='chooseall(i)' /> -->
+                                       
+                                    </th>
+                                   
+                                    <th>卡号</th>
+                                    <th>归属代理商</th>
+
+                                    <th>激活状态</th>
+                                    <th>类型/是否有码号</th>
+                                    <th>创建时间</th>
+                                    <th>分配时间</th>
+                                    <th>微信号</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let item of data;let i=index'>
+
+                                    <td>
+                                        <img src="{{uploadpath}}resource/{{res.check}}" class="icon-20"
+                                            *ngIf='item.checking==true' (click)='chooseone(i,item)' />
+                                        <img src="{{uploadpath}}resource/{{res.nocheck}}" class="icon-20"
+                                            *ngIf='item.checking==false' (click)='chooseone(i,item)' />
+                                    </td>
+
+                                    <!-- <td>{{i+1}}</td> -->
+                                    <td>{{item.cardnumber}}</td>
+                                    <td>{{item.agent_name}}</td>
+
+                                    <td class="txt-red" *ngIf='item.accountStatus=="2"||item.accountStatus=="3"||item.accountStatus=="4"'>{{item.accountStatus_name}}</td>
+                                    <td class="txt-green"*ngIf='item.accountStatus=="1"'>{{item.accountStatus_name}}</td>
+                                    <td class="txt-blue"*ngIf='item.accountStatus=="0"'>{{item.accountStatus_name}}</td>
+                                    <td class="txt-gray"*ngIf='item.accountStatus==""'>{{item.accountStatus_name}}</td>
+                                    <td>{{item.type_name}}/{{item.youma}}</td>
+                                    <td>{{item.fachu}}</td>
+                                    <td>{{item.huode}}</td>
+
+                                    <td>{{item.wechatid}}</td>
+                                    <!-- <td> <span class="badge">
+                                            {{item.status=="A"?"启用":"禁用"}}</span>
+                                    </td> -->
+
+                                    <!-- <textarea cols="20" rows="10" id="urls">用户定义的代码区域</textarea>  -->
+                                    <td>
+
+
+
+                                        <button class="badge bg-primary margin-right" style="border: 0;"title="分配"
+                                            *ngIf='item.usestatus!="A"' data-toggle="modal" data-target="#modal-xl"
+                                            (click)='chooseagent(item.id,item.usestatus)'><img src="{{uploadpath}}resource/{{res.fenpei}}"  class="icon-15" /></button>
+
+
+                                            <button class="badge bg-primary margin-right" style="border: 0;"title="分配"
+                                            *ngIf='item.usestatus=="A"'  
+                                            (click)='chooseagent(item.id,item.usestatus)'><img src="{{uploadpath}}resource/{{res.fenpei}}"  class="icon-15" /></button>
+
+                                        <!-- <button class="badge bg-primary margin-right" style="border: 0;"
+                                            *ngIf='item.usestatus=="A"'
+                                            (click)='chooseagent(item.id,item.usestatus)'>分配</button> -->
+
+ 
+
+
+                                        <!-- <button class="badge bg-green margin-right" style="border: 0;"
+                                            data-toggle="modal" data-target="#modal-xl2"
+                                            (click)='chakan(item.cardnumber)'>查看套餐</button> -->
+
+
+
+                                            <button class="badge bg-success margin-right" style="border: 0;" title="查看套餐" (click)='chakan(item.cardnumber)'
+                                            data-toggle="modal" data-target="#modal-xl2"><img src="{{uploadpath}}resource/{{res.see}}"  class="icon-15" /></button>
+
+
+
+                                        <button class="badge bg-orange margin-right " style="border: 0;"title="微信号"
+                                             data-toggle="modal"
+                                            data-target="#modal-xl3"
+                                            (click)='wechat(item.id,item.usestatus,item.wechatid)'><img src="{{uploadpath}}resource/{{res.weixin}}"  class="icon-15" /></button>
+
+                                            <!-- *ngIf='item.wechatid==""||item.wechatid==undefined' -->
+                                        <!-- <button class="badge bg-orange margin-right " style="border: 0;"title="微信号"
+                                            *ngIf='item.wechatid!=""&&item.wechatid!=undefined'
+                                            (click)='wechat(item.id,item.usestatus,item.wechatid)'><img src="{{uploadpath}}resource/{{res.weixin}}"  class="icon-15" /></button> -->
+
+                                        <button class="badge bg-green margin-right" style="border: 0;" title="转发用户"
+                                            (click)='copy(item.cardnumber)'><img src="{{uploadpath}}resource/{{res.copy}}"  class="icon-15" /></button>
+
+
+                                        <!-- <div class="badge bg-danger" data-toggle="modal" data-target="#modal-default">
+                                            <img src="{{uploadpath}}resource/{{res.delete}}" class="icon-15" title="删除">
+                                        </div> -->
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div *ngIf='simcardlist.length==0' class="text-center" style="width: 100%;">
+                    <div style="height: 20px;"></div>
+                    <img src="{{uploadpath}}resource/{{res.zanwu}}" class="icon-60" >
+                    <div class="margin-top-10">暂无数据</div> 
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+</div>
+
+
+
+<div class="modal fade" id="modal-xl">
+
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <button data-dismiss="modal" class="btn btn-primary margin-left"><img
+                        src="{{uploadpath}}resource/{{res.update}}" class="icon-15" title="分配"></button> -->
+                <div class="flex-1"></div>
+                <h4 class="modal-title">代理商选择</h4>
+                <div class="flex-1"></div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div>
+                    <select name='country' [(ngModel)]='agent_idx' id="inputEmail3"
+                        class="form-control col-form-label-sm">
+                        <option value="">请选择</option>
+                        <option value="{{i}}" *ngFor='let item of agentlist;let i =index;'>
+                            {{item.name}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+
+                <button type="submit" class="btn bg-primary" data-dismiss="modal" (click)='fenpei()'>保存</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="modal-xl2" *ngIf='info!=null'>
+
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <div class="flex-1"></div>
+                <h4 class="modal-title">套餐详情</h4>
+                <div class="flex-1"></div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <!-- <div>
+                    剩余流量:{{info.dataUsageTotal}}MB
+                </div>
+
+                <div>
+                    <div class="margin-top-20" *ngFor='let item of info.dataPackage'>
+
+                        <div>套餐名称:{{item.productName}}</div>
+                        <div>套餐已使用流量:{{item.dataUsage}}</div>
+                    </div>
+                </div> -->
+
+                <div class="margin-top-20 txt-bold">当前使用情况</div>
+                <div *ngFor='let item of info.dataPackage;let i=index'>
+                    <div class="margin-top-20" *ngIf="item.status==1">
+
+                        <div class="flex-row2 flex-center2 padding-top-10 padding-bottom-10 bg-white"> 
+                            <div>充值额度：{{item.dataTotal}}MB</div>
+                            <div class="flex-1"></div>
+                            <div>生效时间：{{info.createTime}}</div>
+                        </div>
+
+                        <div>套餐可用流量：{{item.dataTotal}}MB</div>
+                        <div class="margin-top-10">今日使用流量：{{item.dataToday}}</div>
+                        <div class="margin-top-10">累积使用流量：{{item.dataUsage}}MB</div>
+                    </div>
+                </div>
+
+
+                <div class="margin-top-40 txt-bold">产品套餐</div>
+
+                <div *ngFor='let item of orderlist;let i=index' class="">
+
+                    <div class="  padding-10 bg-white flex-row2 flex-center2 margin-top-10"> 
+                    <div>{{item.packagetype_name}} {{item.package_month}}{{item.package_danwei=='A'?'天':'个月'}} 总{{item.zong}}G</div>  
+
+                    <div class="margin-left-10">
+                        <div class="txt-blue h6">充值时间：{{item.ordertime}}</div>
+                        <!-- <div class="txt-blue h6">到期时间：{{item.enddate}}</div> -->
+                    </div>
+                </div>
+
+                    <table class="table text-center margin-top-20" style="min-width: 200px;max-width: 300px;">
+                        <thead>
+                            <tr>
+                                <th>充值额度</th>
+                                <th>生效时间</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+
+                        <tbody *ngFor='let item2 of item.recordlist;let i2=index'>
+                            <tr>
+                                <td>{{item2.quota}}</td>
+                                <td>{{item2.taketime}}</td>
+                                <td class="{{item2.takestatus === 'A' ? 'txt-blue' : (item2.takestatus === 'B' ? 'txt-green' : 'txt-gray')}}"> 
+                                    {{item2.takestatus === 'A' ? '未启用' : (item2.takestatus === "B" ? '启用' : '已使用')}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+
+
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="modal-xl3">
+
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <button data-dismiss="modal" class="btn btn-primary margin-left"><img
+                        src="{{uploadpath}}resource/{{res.update}}" class="icon-15" title="分配"></button> -->
+                <div class="flex-1"></div>
+                <h4 class="modal-title">填写微信号</h4>
+                <div class="flex-1"></div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div>
+                    <input type="text" class=" form-control col-form-label-sm" id="wechatid" name='wechatid'
+                        placeholder="请输入微信号" [(ngModel)]='wechatid' />
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+                <button type="submit" class="btn bg-primary" data-dismiss="modal" (click)='tianxie()'>保存</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="modal-xl4">
+
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <h4 class="modal-title">提示</h4> 
+            </div>
+
+
+            <div class="modal-body">
+                <div>卡号：</div>
+                <div  *ngFor='let item of simcardlist;let i=index'>
+                    <div class="" *ngIf='item.checking==true'>{{item.cardnumber}}</div>
+                </div> 
+                <div>是否原路退回，并在自己的平台消失!请确认此操作无误后点击确认!</div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+
+                <button type="submit" class="btn bg-primary" data-dismiss="modal" (click)='return()'>保存</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
